@@ -6,20 +6,21 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
 public class SQLData {
-    // Cambia "IP_DE_TU_SERVIDOR" por la IP real de tu Ubuntu Live Server
+	
     private static final String URL = "jdbc:mariadb://192.168.34.191:3306/EstacionMeteorologica";
     private static final String USER = "grupo1s";
     private static final String PASS = "g1s";
 
     public static Connection getConexion() throws SQLException {
         try {
-            // Registrar el driver nativo de MariaDB
             Class.forName("org.mariadb.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            System.err.println("[-] No se encontró el Driver de MariaDB: " + e.getMessage());
-        }
+            
+        	} catch (ClassNotFoundException e) {
+        		System.err.println("[-] No se encontró el Driver de MariaDB: " + e.getMessage());
+        	}
         return DriverManager.getConnection(URL, USER, PASS);
     }
+    
     public static void insertarLectura(
 
             int estacionId,
