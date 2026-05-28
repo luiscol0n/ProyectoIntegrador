@@ -15,39 +15,24 @@ public class SuscriptorCallback implements MqttCallback {
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-
-        System.out.println(
-                "Mensaje recibido en topic: " + topic
-        );
-
+        System.out.println("Mensaje recibido en topic: " + topic);
         String json = message.toString();
-
-        System.out.println(
-                "Contenido: " + json
-        );
+        System.out.println("Contenido: " + json);
 
         Gson gson = new Gson();
-
-        Sensor sensor =
-                gson.fromJson(json, Sensor.class);
+        Sensor sensor = gson.fromJson(json, Sensor.class);
 
         int estacionId = 1;
 
         if(sensor.getSensorId().equals("estacion-2")) {
-
             estacionId = 2;
         }
 
         SQLData.insertarLectura(
-
                 estacionId,
-
                 sensor.getPrecipitacion(),
-
                 sensor.getDireccionViento(),
-
                 sensor.getVelocidadViento()
-
         );
 
         System.out.println(
