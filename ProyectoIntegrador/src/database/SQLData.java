@@ -24,8 +24,9 @@ public class SQLData {
     public static void insertarLectura(
 
             int estacionId,
-            double temperatura,
-            double humedad
+            double precipitacion,
+            double direccionViento,
+            double velocidadViento
 
     ) {
 
@@ -35,23 +36,27 @@ public class SQLData {
 
             String sql =
                     "INSERT INTO lecturas " +
-                    "(id_estacion, temperatura, humedad) " +
-                    "VALUES (?, ?, ?)";
+                    "(estacion_id, precipitacion, direccion_viento, velocidad_viento) " +
+                    "VALUES (?, ?, ?, ?)";
 
             PreparedStatement stmt =
                     conn.prepareStatement(sql);
 
             stmt.setInt(1, estacionId);
 
-            stmt.setDouble(2, temperatura);
+            stmt.setDouble(2, precipitacion);
 
-            stmt.setDouble(3, humedad);
+            stmt.setDouble(3, direccionViento);
+
+            stmt.setDouble(4, velocidadViento);
 
             stmt.executeUpdate();
 
             System.out.println(
                     "Lectura guardada"
             );
+
+            stmt.close();
 
             conn.close();
 
